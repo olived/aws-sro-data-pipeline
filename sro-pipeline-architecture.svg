@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1400" viewBox="0 0 1800 1400" role="img" aria-labelledby="title desc">
+<title id="title">AWS Data Engineering POC — SRO Pipeline</title>
+<desc id="desc">EventBridge Scheduler triggers sfn_sro_pipeline with eight sequential AWS Glue jobs. S3 dgo-sro-data-lake holds landing, bronze, silver and gold layers for apolice and endosso. Glue Data Catalog sro_catalog and Athena support validation.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#475569" stroke-width="1.7"/></marker><marker id="blue" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#2563a6" stroke-width="1.7"/></marker></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#17212f}.muted{fill:#647184}.mono{font-family:Consolas,'Courier New',monospace}.small{font-size:17px}.label{font-size:19px;font-weight:700}.section{font-size:17px;font-weight:700;letter-spacing:2px}</style>
+<rect width="1800" height="1400" fill="#fff"/>
+<rect x="0" y="0" width="1800" height="12" fill="#ef8c21"/>
+
+<text x="70" y="78" font-size="44" class="">SRO Pipeline</text>
+<text x="72" y="115" font-size="22" class="muted">AWS Data Engineering POC  /  Logical architecture</text>
+<rect x="1450" y="52" width="280" height="42" rx="21" fill="#fff6e9" stroke="#f1c18a" stroke-width="1.5"/>
+<text x="1482" y="80" font-size="17" class="section">PORTFOLIO · GITHUB</text>
+<rect x="70" y="164" width="390" height="106" rx="12" fill="#fff6e9" stroke="#efb56e" stroke-width="1.5"/>
+<text x="94" y="198" font-size="14" class="section muted">SCHEDULING</text>
+<text x="94" y="235" font-size="25" class="">EventBridge Scheduler</text>
+<path d="M460 217 H560" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="478" y="201" font-size="16" class="muted">triggers</text>
+<rect x="560" y="164" width="1170" height="106" rx="12" fill="#f5f7fa" stroke="#bdc8d4" stroke-width="1.5"/>
+<text x="586" y="198" font-size="14" class="section muted">AWS STEP FUNCTIONS</text>
+<text x="586" y="235" font-size="26" class="mono">sfn_sro_pipeline</text>
+<text x="1250" y="232" font-size="20" class="muted">8 jobs • sequential execution</text>
+<rect x="45" y="310" width="1710" height="426" rx="16" fill="#fafbfc" stroke="#d4dce5" stroke-width="1.5"/>
+<text x="650" y="337" font-size="16" class="section muted">PROCESSING  /  AWS GLUE</text>
+<path d="M1145 270 V300 H255 V360" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="70" y="360" width="370" height="132" rx="12" fill="#fff" stroke="#c8d1dc" stroke-width="1.5"/>
+<rect x="70" y="360" width="5" height="132" rx="2" fill="#ef8c21"/>
+<rect x="88" y="376" width="38" height="29" rx="7" fill="#fff0db" stroke="#fff0db" stroke-width="1.5"/>
+<text x="97" y="397" font-size="17" class="mono">01</text>
+<text x="140" y="397" font-size="15" class="section muted">POLICY</text>
+<text x="88" y="433" font-size="17" class="mono">Landing_Bronze_Apolice</text>
+<text x="88" y="468" font-size="19" class="">Landing → Bronze</text>
+<path d="M440 426 H500" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="500" y="360" width="370" height="132" rx="12" fill="#fff" stroke="#c8d1dc" stroke-width="1.5"/>
+<rect x="500" y="360" width="5" height="132" rx="2" fill="#ef8c21"/>
+<rect x="518" y="376" width="38" height="29" rx="7" fill="#fff0db" stroke="#fff0db" stroke-width="1.5"/>
+<text x="527" y="397" font-size="17" class="mono">02</text>
+<text x="570" y="397" font-size="15" class="section muted">POLICY</text>
+<text x="518" y="433" font-size="17" class="mono">job_bronze_silver_apolice</text>
+<text x="518" y="468" font-size="19" class="">Bronze → Silver</text>
+<path d="M870 426 H930" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="930" y="360" width="370" height="132" rx="12" fill="#fff" stroke="#c8d1dc" stroke-width="1.5"/>
+<rect x="930" y="360" width="5" height="132" rx="2" fill="#ef8c21"/>
+<rect x="948" y="376" width="38" height="29" rx="7" fill="#fff0db" stroke="#fff0db" stroke-width="1.5"/>
+<text x="957" y="397" font-size="17" class="mono">03</text>
+<text x="1000" y="397" font-size="15" class="section muted">POLICY</text>
+<text x="948" y="433" font-size="17" class="mono">job_silver_gold_apolice</text>
+<text x="948" y="468" font-size="19" class="">Silver → Gold</text>
+<path d="M1300 426 H1360" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1360" y="360" width="370" height="132" rx="12" fill="#fff" stroke="#c8d1dc" stroke-width="1.5"/>
+<rect x="1360" y="360" width="5" height="132" rx="2" fill="#ef8c21"/>
+<rect x="1378" y="376" width="38" height="29" rx="7" fill="#fff0db" stroke="#fff0db" stroke-width="1.5"/>
+<text x="1387" y="397" font-size="17" class="mono">04</text>
+<text x="1430" y="397" font-size="15" class="section muted">POLICY</text>
+<text x="1378" y="433" font-size="17" class="mono">job_gold_json_sro0001</text>
+<text x="1378" y="468" font-size="19" class="">Gold → JSON SRO0001</text>
+<rect x="70" y="563" width="370" height="132" rx="12" fill="#fff" stroke="#c8d1dc" stroke-width="1.5"/>
+<rect x="70" y="563" width="5" height="132" rx="2" fill="#ef8c21"/>
+<rect x="88" y="579" width="38" height="29" rx="7" fill="#fff0db" stroke="#fff0db" stroke-width="1.5"/>
+<text x="97" y="600" font-size="17" class="mono">05</text>
+<text x="140" y="600" font-size="15" class="section muted">ENDORSEMENT</text>
+<text x="88" y="636" font-size="17" class="mono">Landing_Bronze_Endosso</text>
+<text x="88" y="671" font-size="19" class="">Landing → Bronze</text>
+<path d="M440 629 H500" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="500" y="563" width="370" height="132" rx="12" fill="#fff" stroke="#c8d1dc" stroke-width="1.5"/>
+<rect x="500" y="563" width="5" height="132" rx="2" fill="#ef8c21"/>
+<rect x="518" y="579" width="38" height="29" rx="7" fill="#fff0db" stroke="#fff0db" stroke-width="1.5"/>
+<text x="527" y="600" font-size="17" class="mono">06</text>
+<text x="570" y="600" font-size="15" class="section muted">ENDORSEMENT</text>
+<text x="518" y="636" font-size="17" class="mono">job_bronze_silver_endosso</text>
+<text x="518" y="671" font-size="19" class="">Bronze → Silver</text>
+<path d="M870 629 H930" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="930" y="563" width="370" height="132" rx="12" fill="#fff" stroke="#c8d1dc" stroke-width="1.5"/>
+<rect x="930" y="563" width="5" height="132" rx="2" fill="#ef8c21"/>
+<rect x="948" y="579" width="38" height="29" rx="7" fill="#fff0db" stroke="#fff0db" stroke-width="1.5"/>
+<text x="957" y="600" font-size="17" class="mono">07</text>
+<text x="1000" y="600" font-size="15" class="section muted">ENDORSEMENT</text>
+<text x="948" y="636" font-size="17" class="mono">job_silver_gold_endosso</text>
+<text x="948" y="671" font-size="19" class="">Silver → Gold</text>
+<path d="M1300 629 H1360" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1360" y="563" width="370" height="132" rx="12" fill="#fff" stroke="#c8d1dc" stroke-width="1.5"/>
+<rect x="1360" y="563" width="5" height="132" rx="2" fill="#ef8c21"/>
+<rect x="1378" y="579" width="38" height="29" rx="7" fill="#fff0db" stroke="#fff0db" stroke-width="1.5"/>
+<text x="1387" y="600" font-size="17" class="mono">08</text>
+<text x="1430" y="600" font-size="15" class="section muted">ENDORSEMENT</text>
+<text x="1378" y="636" font-size="17" class="mono">job_gold_json_sro0002</text>
+<text x="1378" y="671" font-size="19" class="">Gold → JSON SRO0002</text>
+<path d="M1730 426 H1742 V526 H57 V629 H70" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="730" y="520" font-size="15" class="muted">continues after job 04</text>
+<path d="M900 736 V799" fill="none" stroke="#2563a6" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="714" y="749" width="372" height="34" rx="5" fill="#fff" stroke="#fff" stroke-width="1.5"/>
+<text x="739" y="773" font-size="18" class="muted">read / write across S3 layers</text>
+<rect x="70" y="800" width="1660" height="280" rx="16" fill="#f3f7fc" stroke="#b8cce2" stroke-width="1.5"/>
+<text x="96" y="838" font-size="16" class="section">AMAZON S3</text>
+<text x="96" y="873" font-size="28" class="mono">dgo-sro-data-lake</text>
+<text x="1045" y="871" font-size="20" class="muted">Layers by entity: apolice / endosso</text>
+<rect x="98" y="903" width="365" height="108" rx="12" fill="#fff" stroke="#c4d4e7" stroke-width="1.5"/>
+<text x="120" y="937" font-size="24" class="mono">landing/</text>
+<text x="120" y="971" font-size="18" class="mono muted">apolice</text>
+<text x="288" y="971" font-size="18" class="mono muted">endosso</text>
+<path d="M463 950 H511" fill="none" stroke="#2563a6" stroke-width="2" marker-end="url(#blue)"/>
+<rect x="511" y="903" width="365" height="108" rx="12" fill="#fff" stroke="#c4d4e7" stroke-width="1.5"/>
+<text x="533" y="937" font-size="24" class="mono">bronze/</text>
+<text x="533" y="971" font-size="18" class="mono muted">apolice</text>
+<text x="701" y="971" font-size="18" class="mono muted">endosso</text>
+<path d="M876 950 H924" fill="none" stroke="#2563a6" stroke-width="2" marker-end="url(#blue)"/>
+<rect x="924" y="903" width="365" height="108" rx="12" fill="#fff" stroke="#c4d4e7" stroke-width="1.5"/>
+<text x="946" y="937" font-size="24" class="mono">silver/</text>
+<text x="946" y="971" font-size="18" class="mono muted">apolice</text>
+<text x="1114" y="971" font-size="18" class="mono muted">endosso</text>
+<path d="M1289 950 H1337" fill="none" stroke="#2563a6" stroke-width="2" marker-end="url(#blue)"/>
+<rect x="1337" y="903" width="365" height="108" rx="12" fill="#fff" stroke="#c4d4e7" stroke-width="1.5"/>
+<text x="1359" y="937" font-size="24" class="mono">gold/</text>
+<text x="1359" y="971" font-size="18" class="mono muted">apolice</text>
+<text x="1527" y="971" font-size="18" class="mono muted">endosso</text>
+<text x="99" y="1045" font-size="18" class="muted">Layer progression: landing → bronze → silver → gold, applied to each entity.</text>
+<rect x="70" y="1152" width="665" height="112" rx="12" fill="#f5f7fa" stroke="#bdc8d4" stroke-width="1.5"/>
+<text x="96" y="1186" font-size="15" class="section muted">AWS GLUE DATA CATALOG</text>
+<text x="96" y="1224" font-size="25" class="mono">sro_catalog</text>
+<path d="M402 1080 V1152" fill="none" stroke="#2563a6" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="420" y="1125" font-size="17" class="muted">metadata</text>
+<rect x="1065" y="1152" width="665" height="112" rx="12" fill="#fff6e9" stroke="#efb56e" stroke-width="1.5"/>
+<text x="1091" y="1186" font-size="15" class="section muted">AMAZON ATHENA</text>
+<text x="1091" y="1224" font-size="25" class="">Validation queries</text>
+<path d="M735 1208 H1065" fill="none" stroke="#2563a6" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#blue)"/>
+<text x="799" y="1190" font-size="17" class="muted">metadata</text>
+<path d="M1397 1152 V1080" fill="none" stroke="#2563a6" stroke-width="2" marker-end="url(#blue)"/>
+<text x="1415" y="1125" font-size="17" class="muted">queries data</text>
+<path d="M70 1320 H118" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="132" y="1326" font-size="16" class="muted">Execution sequence</text>
+<path d="M435 1320 H483" fill="none" stroke="#2563a6" stroke-width="2" marker-end="url(#blue)"/>
+<text x="497" y="1326" font-size="16" class="muted">Data flow / query</text>
+<path d="M830 1320 H878" fill="none" stroke="#2563a6" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="892" y="1326" font-size="16" class="muted">Logical relation / metadata</text>
+<text x="70" y="1367" font-size="18" class="muted">SRO0001 and SRO0002 JSON: generated by the indicated jobs; destination not specified.</text>
+</svg>
