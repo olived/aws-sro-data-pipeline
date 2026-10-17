@@ -42,3 +42,20 @@ The final job for each entity generates its corresponding JSON: SRO0001 for poli
 ## Scope
 
 This repository documents the proof-of-concept architecture. JSON output destinations are not specified.
+
+## Execution Evidence
+
+The pipeline completed successfully on October 17, 2026.
+All eight AWS Glue tasks succeeded, with a total orchestration
+duration of 15 minutes and 20 seconds.
+
+### Execution Summary
+
+![Successful execution summary](docs/evidence/step-functions-execution-summary.png)
+
+### Completed Workflow
+
+![All eight tasks completed successfully](docs/evidence/step-functions-execution-graph.png)
+
+These screenshots demonstrate successful orchestration.
+Data output validation is documented separately when available.
