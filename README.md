@@ -6,6 +6,11 @@ The pipeline uses Amazon EventBridge Scheduler to trigger AWS Step Functions, wh
 
 ## Architecture
 
+![AWS SRO Pipeline Architecture](sro-pipeline-architecture.png)
+
+[View editable diagram (SVG)](sro-pipeline-architecture.svg)
+
+
 - **Scheduling:** Amazon EventBridge Scheduler
 - **Orchestration:** AWS Step Functions — `sfn_sro_pipeline`
 - **Processing:** Eight sequential AWS Glue jobs
