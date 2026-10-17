@@ -22,11 +22,11 @@ The pipeline uses Amazon EventBridge Scheduler to trigger AWS Step Functions, wh
 
 | Step | AWS Glue Job |
 | --- | --- |
-| 1 | `Landing_Bronze_Apolice` |
+| 1 | `job_landing_bronze_apolice` |
 | 2 | `job_bronze_silver_apolice` |
 | 3 | `job_silver_gold_apolice` |
 | 4 | `job_gold_json_sro0001` |
-| 5 | `Landing_Bronze_Endosso` |
+| 5 | `job_landing_bronze_endosso` |
 | 6 | `job_bronze_silver_endosso` |
 | 7 | `job_silver_gold_endosso` |
 | 8 | `job_gold_json_sro0002` |
@@ -39,9 +39,31 @@ Both entities follow the same logical progression:
 
 The final job for each entity generates its corresponding JSON: SRO0001 for policies and SRO0002 for endorsements.
 
+## JSON Outputs
+
+The final jobs write simplified POC JSON documents to Amazon S3:
+
+| Output | S3 Location |
+| --- | --- |
+| SRO0001 — Policies | `s3://dgo-sro-data-lake/gold/json/sro0001/SRO0001.json` |
+| SRO0002 — Endorsements | `s3://dgo-sro-data-lake/gold/json/sro0002/SRO0002.json` |
+
+These paths are confirmed by the exported Glue scripts.
+
+## Repository Contents
+
+- [Glue job scripts](glue/jobs/)
+- [Step Functions definition](step-functions/sfn_sro_pipeline.asl.json)
+- [EventBridge Scheduler configuration](eventbridge/README.md)
+- [Execution evidence](docs/evidence/)
+
 ## Scope
 
-This repository documents the proof-of-concept architecture. JSON output destinations are not specified.
+This repository includes the POC architecture, exported Glue scripts,
+Step Functions definition, scheduling documentation, and execution evidence.
+
+The JSON documents are simplified POC outputs. Regulatory compliance
+and production readiness have not been established.
 
 ## Execution Evidence
 
