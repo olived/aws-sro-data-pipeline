@@ -1,0 +1,72 @@
+{
+  "Comment": "Orchestrates the AWS Glue ETL pipelines for SRO0001 (Policy) and SRO0002 (Endorsement), processing data through Landing, Bronze, Silver, and Gold layers and generating JSON output files.",
+  "StartAt": "Landing_Bronze_Apolice",
+  "States": {
+    "Landing_Bronze_Apolice": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job_landing_bronze_apolice"
+      },
+      "Next": "job_bronze_silver_apolice"
+    },
+    "job_bronze_silver_apolice": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job_bronze_silver_apolice"
+      },
+      "Next": "job_silver_gold_apolice"
+    },
+    "job_silver_gold_apolice": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job_silver_gold_apolice"
+      },
+      "Next": "job_gold_json_sro0001"
+    },
+    "job_gold_json_sro0001": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job_gold_json_sro0001"
+      },
+      "Next": "Landing_Bronze_Endosso"
+    },
+    "Landing_Bronze_Endosso": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job_landing_bronze_endosso"
+      },
+      "Next": "job_bronze_silver_endosso"
+    },
+    "job_bronze_silver_endosso": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job_bronze_silver_endosso"
+      },
+      "Next": "job_silver_gold_endosso"
+    },
+    "job_silver_gold_endosso": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job_silver_gold_endosso"
+      },
+      "Next": "job_gold_json_sro0002"
+    },
+    "job_gold_json_sro0002": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job_gold_json_sro0002"
+      },
+      "End": true
+    }
+  },
+  "QueryLanguage": "JSONPath",
+  "TimeoutSeconds": 3600
+}
